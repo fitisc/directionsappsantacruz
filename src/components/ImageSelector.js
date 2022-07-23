@@ -29,17 +29,18 @@ const styles = StyleSheet.create({
 const  ImageSelector = ({ onImage }) => {
     const[pickedUrl, setPickedUrl] = useState(""); 
 
-const verifyPermission = async () => {
+const verifyPermissions = async () => {
     const { status } = await ImagePicker. requestCameraPermissionsAsync();
 
     if (status !== "granted") {
-        Alert.alert("No tienes permiso para usar la camara");
+        Alert.alert("No tienes permiso para usar la camara", "Necesitas permiso para usar la camara", [{text: "ok"}]);
         return false;
     }
+    return true;
 }
 
 const handleTakeImage = async () => {
-    const isCameraPermissionGranted = await verifyPermission();
+    const isCameraPermissionGranted = await verifyPermissions();
 
     if (!isCameraPermissionGranted) {
         return;
